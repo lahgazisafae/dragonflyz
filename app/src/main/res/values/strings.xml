@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FinalApplication</string>
+    <string name="locationName">Sample City</string>
+    <string name="deleteBtn">Delete</string>
+    <string name="shareBtn">Share</string>
+
+
+</resources>

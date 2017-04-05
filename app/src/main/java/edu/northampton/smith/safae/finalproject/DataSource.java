@@ -32,8 +32,13 @@ public class DataSource {
     }
 
     //consider passing a String value with all these entries instead?
+<<<<<<< HEAD
+    //PlaceHolderTrip will be replaced by class name for Trip Object
+    public PlaceholderTrip createTrip(String destination, String date_arrival, String date_departure ,String diary_entry_time){
+=======
     //Trip will be replaced by class name for Trip Object
     public Trip createTrip(String destination, String date_arrival, String date_departure ,String diary_entry_time){
+>>>>>>> master
         //all these entries must be passed to database as ContentValues, why? not sure, just do it
         ContentValues values = new ContentValues();
         //****HOW TO MAKE THIS MORE EFFICIENT? is this necessary? how to do this more efficiently/with a String []?
@@ -48,12 +53,28 @@ public class DataSource {
         //first entry will be the latest inserted entry
         cursor.moveToFirst();
         //MUST TRANSLATE TABLE ENTRY DATA INTO TRIP OBJECT through separate method
+<<<<<<< HEAD
+        PlaceholderTrip newTrip = cursorToTrip(cursor);
+=======
         Trip newTrip = cursorToTrip(cursor);
+>>>>>>> master
         cursor.close();
         return newTrip;
 
     }
 
+<<<<<<< HEAD
+    public void deleteTrip ( PlaceholderTrip trip){
+        long id = trip.getId();
+        database.delete("users","id="+id,null);
+    }
+    public List<PlaceholderTrip> getAllTrips(){
+        List<PlaceholderTrip> trips = new ArrayList<PlaceholderTrip>();
+        Cursor c = database.query("users",allFields,null,null,null,null,null);
+        c.moveToFirst();
+        while(!c.isAfterLast()){
+            PlaceholderTrip t = cursorToTrip(c);
+=======
     public void deleteTrip (Trip trip){
         long id = trip.getId();
         database.delete("users","id="+id,null);
@@ -64,6 +85,7 @@ public class DataSource {
         c.moveToFirst();
         while(!c.isAfterLast()){
             Trip t = cursorToTrip(c);
+>>>>>>> master
             trips.add(t);
             c.moveToNext();
         }
@@ -71,9 +93,15 @@ public class DataSource {
     }
 
 
+<<<<<<< HEAD
+    public PlaceholderTrip cursorToTrip(Cursor c){
+        PlaceholderTrip trip = new PlaceholderTrip();
+        trip.setDestination((String) c.getString(0));
+=======
     public Trip cursorToTrip(Cursor c){
         Trip trip = new Trip();
         trip.setLocation((String) c.getString(0));
+>>>>>>> master
         return trip;
 
     }

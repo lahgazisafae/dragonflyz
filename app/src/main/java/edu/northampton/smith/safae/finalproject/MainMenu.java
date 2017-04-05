@@ -47,7 +47,7 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         savedTrips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getActivity().finish();
                 Intent intent = new Intent(getActivity(),Trips_SQLite.class);
                 startActivity(intent);
             }

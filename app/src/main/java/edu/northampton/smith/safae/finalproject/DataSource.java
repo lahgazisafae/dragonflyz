@@ -63,7 +63,7 @@ public class DataSource {
 
     public List<Trip> getAllTrips() {
         List<Trip> trips = new ArrayList<Trip>();
-        Cursor c = database.query("users", allFields, null, null, null, null, null);
+        Cursor c = database.query("trips", allFields, null, null, null, null, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Trip t = cursorToTrip(c);
@@ -73,7 +73,7 @@ public class DataSource {
 
     public void deleteTrip (Trip trip){
         long id = trip.getId();
-        database.delete("users","id="+id,null);
+        database.delete("trips","id="+id,null);
     }
 
 

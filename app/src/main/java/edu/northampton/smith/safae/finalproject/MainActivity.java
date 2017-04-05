@@ -1,13 +1,21 @@
 package edu.northampton.smith.safae.finalproject;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+
+
+public class MainActivity extends FragmentActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainMenu mainMenuFragment = new MainMenu();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, mainMenuFragment).commit();
     }
 }

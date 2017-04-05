@@ -9,9 +9,15 @@ public class PlaceholderTrip {
 
     String destination;
 
-    public PlaceholderTrip(String destination){
-        this.destination = destination;
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    int id;
 
 
     public String getDestination() {

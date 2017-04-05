@@ -42,8 +42,8 @@ public class SetTime extends Fragment implements View.OnClickListener {
         });
 
         TimePicker timePicker = (TimePicker) v.findViewById(R.id.timePicker);
-        int hour  = timePicker.getHour();
-        int minute = timePicker.getMinute();
+//        int hour  = timePicker.getHour();
+//        int minute = timePicker.getMinute();
 
         return v;
     }

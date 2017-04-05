@@ -9,40 +9,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Amyrah on 4/4/17.
+ * Created by Safae on 4/5/2017.
  */
 
-
 public class DataSource {
+
     SQLiteDatabase database;
-    MySQLiteHelper mysqlhelper ;
-    String[] allColumns = {"id", "name","date","location","journal entry"};
+    SQLiteHelper mysqlhelper;
+
+    String[] allFields = {"id", "destination", "date_arrival", "date_departure","diary_entry_time"};
 
     public DataSource (Context c){
-        mysqlhelper = new MySQLiteHelper(c);
+        mysqlhelper = new SQLiteHelper(c);
     }
-    public void open (){
+
+    public void open(){
         database = mysqlhelper.getWritableDatabase();
     }
-    public void close() {mysqlhelper.close();}
-    public Trip createTrip(String name){
+
+    public void close(){
+        mysqlhelper.close();
+    }
+
+    //consider passing a String value with all these entries instead?
+    //Trip will be replaced by class name for Trip Object
+    public Trip createTrip(String destination, String date_arrival, String date_departure ,String diary_entry_time){
+        //all these entries must be passed to database as ContentValues, why? not sure, just do it
         ContentValues values = new ContentValues();
-        values.put("name",name);
-        long insertId = database.insert("trips",null,values);
-        Cursor cursor = database.query("trips",allColumns,
-                "id"+"="+insertId,null,null,null,null);
+        //****HOW TO MAKE THIS MORE EFFICIENT? is this necessary? how to do this more efficiently/with a String []?
+        values.put("destination", destination);
+        values.put("date_arrival", date_arrival);
+        values.put("date_departure", date_departure);
+        values.put("diary_entry_time", diary_entry_time);
+        //INSERT NEW ENTRY INTO TRIPS TABLE
+        long insertId = database.insert("trips", null, values);
+        //ACCESS ENTRY IN TRIPS TABLE BY CREATING A CURSOR (ITERATOR)
+        Cursor cursor = database.query("trips", allFields, "id" + "=" + insertId, null, null,null,null);
+        //first entry will be the latest inserted entry
         cursor.moveToFirst();
-        Trip newTrip = cursorToTrip (cursor);
+        //MUST TRANSLATE TABLE ENTRY DATA INTO TRIP OBJECT through separate method
+        Trip newTrip = cursorToTrip(cursor);
         cursor.close();
         return newTrip;
+
     }
-    public void deleteTrip (Trip t){
-        long id = t.getId();
-        database.delete("trips","id="+id,null);
+
+    public void deleteTrip (Trip trip){
+        long id = trip.getId();
+        database.delete("users","id="+id,null);
     }
     public List<Trip> getAllTrips(){
         List<Trip> trips = new ArrayList<Trip>();
-        Cursor c = database.query("trips",allColumns,null,null,null,null,null);
+        Cursor c = database.query("users",allFields,null,null,null,null,null);
         c.moveToFirst();
         while(!c.isAfterLast()){
             Trip t = cursorToTrip(c);
@@ -51,14 +69,12 @@ public class DataSource {
         }
         return trips;
     }
-    private Trip cursorToTrip (Cursor cursor){
-        Trip t = new Trip();
-        t.setId((int)cursor.getLong(0));
-        t.setName(cursor.getString(1));
-        t.setDate(cursor.getInt(2));
-        t.setLocation(cursor.getString(3));
-        t.setJournalEntry(cursor.getString(4));
-        return t;
+
+
+    public Trip cursorToTrip(Cursor c){
+        Trip trip = new Trip();
+        trip.setLocation((String) c.getString(0));
+        return trip;
+
     }
 }
-

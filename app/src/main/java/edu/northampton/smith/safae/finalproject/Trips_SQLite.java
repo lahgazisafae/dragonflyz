@@ -37,13 +37,15 @@ public class Trips_SQLite extends ListActivity {
             }
         }
         if(view.getId() == R.id.add){
-            String [] trips = {"john","bob","xyz","abc","bcd"};
-            String [] trip_departure = {"john","bob","xyz","abc","bcd"};
-            String [] trip_return = {"john","bob","xyz","abc","bcd"};
-            String [] entry_time = {"john","bob","xyz","abc","bcd"};
+
+            String [] destinations = {"Budapest","Prague","Madrid","Shanghai","Athens"};
+            String [] dates_arrival = {"2261995","1231993","4111993","4271972","12312017"};
+            String [] dates_departure = {"2261995","1231993","4111993","4271972","12312017"};
+            String [] entry_time = {"1234","2341","1156","1034","1545"};
             int index = new Random().nextInt(4);
             t = ds.createTrip(trips[index],trip_departure[index],
                     trip_return[index],entry_time[index]);
+
             adapter.add(t);
 
         }

@@ -10,11 +10,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 
+
     String SQL_Create = "create table trips ('id' integer primary key autoincrement," +
             "'destination' text not null, " +
             "'date_departure' text not null," +
             " 'date_return' text not null," +
             " 'diary_entry_time' integer not null  );";
+
 
     public SQLiteHelper(Context context) {
         super(context, "trips", null, 1);

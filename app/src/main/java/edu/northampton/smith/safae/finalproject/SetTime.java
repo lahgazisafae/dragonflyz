@@ -18,10 +18,9 @@ import android.widget.Toast;
 
 public class SetTime extends Fragment implements View.OnClickListener {
 
-    DataStorage ds;
-    Button done;
-    int hour;
-    int minute;
+    private Button done;
+    private int hour;
+    private int minute;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

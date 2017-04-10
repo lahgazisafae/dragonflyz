@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Trips_SQLite extends ListActivity {
-    DataSource ds ;
+    DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +36,18 @@ public class Trips_SQLite extends ListActivity {
                 adapter.remove(t);
             }
         }
-//        if(view.getId() == R.id.add){
-//            String [] trips = {"john","bob","xyz","abc","bcd"};
-//            int index = new Random().nextInt(4);
-//            t = ds.createTrip(trips[index]);
-//            adapter.add(t);
-//
-//        }
-//        adapter.notifyDataSetChanged();
+        if(view.getId() == R.id.add){
+            String [] trips = {"john","bob","xyz","abc","bcd"};
+            String [] trip_departure = {"john","bob","xyz","abc","bcd"};
+            String [] trip_return = {"john","bob","xyz","abc","bcd"};
+            String [] entry_time = {"john","bob","xyz","abc","bcd"};
+            int index = new Random().nextInt(4);
+            t = ds.createTrip(trips[index],trip_departure[index],
+                    trip_return[index],entry_time[index]);
+            adapter.add(t);
+
+        }
+        adapter.notifyDataSetChanged();
     }
     @Override
     protected void onResume() {

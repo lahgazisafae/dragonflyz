@@ -14,6 +14,9 @@ import android.widget.EditText;
 
 import android.support.v4.app.FragmentTransaction;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by Amyrah on 4/4/17.
@@ -21,12 +24,11 @@ import android.support.v4.app.FragmentTransaction;
 
 public class Depart extends Fragment implements View.OnClickListener {
 
-    DataStorage ds;
-    Button submit;
-    String location;
-    int day;
-    int month;
-    int year;
+
+    private Button submit;
+    private String location;
+    private String date;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -54,10 +56,10 @@ public class Depart extends Fragment implements View.OnClickListener {
         EditText place = (EditText) v.findViewById(R.id.place);
         location = place.getText().toString();
         DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
-        day = datePicker.getDayOfMonth();
-        month = datePicker.getMonth() + 1;
-        year = datePicker.getYear();
 
+        Date d = new Date(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
+        SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");
+        date = dform.format(d);
         return v;
     }
 

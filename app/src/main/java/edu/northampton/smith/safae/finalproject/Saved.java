@@ -11,7 +11,6 @@ import android.view.ViewGroup;
  */
 
 public class Saved extends Fragment {
-    DataStorage ds;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 

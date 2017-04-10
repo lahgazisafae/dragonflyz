@@ -11,18 +11,18 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Amyrah on 4/5/17.
  */
 
 public class Return extends Fragment implements View.OnClickListener {
 
-    DataStorage ds;
-    Button submit;
+    private Button submit;
+    private String date;
 
-    int day;
-    int month;
-    int year;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -50,10 +50,9 @@ public class Return extends Fragment implements View.OnClickListener {
 
 
         DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
-        day = datePicker.getDayOfMonth();
-        month = datePicker.getMonth() + 1;
-        year = datePicker.getYear();
-
+        Date d = new Date(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
+        SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");
+        date = dform.format(d);
         return v;
     }
 

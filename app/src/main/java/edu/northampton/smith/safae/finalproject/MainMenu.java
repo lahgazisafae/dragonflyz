@@ -18,7 +18,6 @@ import android.widget.Button;
 
 public class MainMenu extends Fragment implements View.OnClickListener {
 
-    DataStorage ds;
     Button newTrip;
     Button savedTrips;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -17,7 +17,7 @@ public class DataSource {
     SQLiteDatabase database;
     SQLiteHelper mysqlhelper;
 
-    String[] allFields = {"id", "destination", "date_arrival", "date_departure","diary_entry_time"};
+    String[] allFields = {"id", "destination","date_departure", "date_return","diary_entry_time"};
 
     public DataSource (Context c){
         mysqlhelper = new SQLiteHelper(c);
@@ -35,14 +35,14 @@ public class DataSource {
 
 
     //Trip will be replaced by class name for Trip Object
-    public Trip createTrip(String destination, String date_arrival, String date_departure ,String diary_entry_time){
+    public Trip createTrip(String destination, String date_departure, String date_return, String diary_entry_time){
 
         //all these entries must be passed to database as ContentValues, why? not sure, just do it
         ContentValues values = new ContentValues();
         //****HOW TO MAKE THIS MORE EFFICIENT? is this necessary? how to do this more efficiently/with a String []?
         values.put("destination", destination);
-        values.put("date_arrival", date_arrival);
         values.put("date_departure", date_departure);
+        values.put("date_return", date_return);
         values.put("diary_entry_time", diary_entry_time);
         //INSERT NEW ENTRY INTO TRIPS TABLE
         long insertId = database.insert("trips", null, values);
@@ -67,6 +67,8 @@ public class DataSource {
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Trip t = cursorToTrip(c);
+            trips.add(t);
+            c.moveToNext();
         }
         return trips;
     }
@@ -80,7 +82,12 @@ public class DataSource {
 
     public Trip cursorToTrip(Cursor c){
         Trip trip = new Trip();
-        trip.setLocation((String) c.getString(0));
+        trip.setId((int) c.getInt(0));
+        trip.setLocation((String) c.getString(1));
+        trip.setDepartureDate((String) c.getString(2));
+        trip.setReturnDate((String) c.getString(3));
+        trip.setTime((int) c.getInt(c.getInt(4)));
+
         return trip;
 
     }

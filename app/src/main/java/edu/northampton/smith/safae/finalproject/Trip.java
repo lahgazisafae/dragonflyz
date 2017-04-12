@@ -11,7 +11,7 @@ public class Trip {
     private int id;
     private String departureDate;
     private String returnDate;
-    private int timeInMin;
+    private String timeInMin;
     private String location;
 
 
@@ -31,11 +31,11 @@ public class Trip {
         this.returnDate = returnDate;
     }
 
-    public int getTime() {
+    public String getTime() {
         return timeInMin;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.timeInMin = time;
     }
 

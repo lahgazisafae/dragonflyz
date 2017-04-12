@@ -21,6 +21,7 @@ public class DataSource {
 
     public DataSource (Context c){
         mysqlhelper = new SQLiteHelper(c);
+      //  mysqlhelper.onUpgrade(database,0,0);
     }
 
     public void open(){
@@ -45,30 +46,38 @@ public class DataSource {
         values.put("date_return", date_return);
         values.put("diary_entry_time", diary_entry_time);
         //INSERT NEW ENTRY INTO TRIPS TABLE
-        long insertId = database.insert("trips", null, values);
-        //ACCESS ENTRY IN TRIPS TABLE BY CREATING A CURSOR (ITERATOR)
-        Cursor cursor = database.query("trips", allFields, "id" + "=" + insertId, null, null,null,null);
-        //first entry will be the latest inserted entry
-        cursor.moveToFirst();
-        //MUST TRANSLATE TABLE ENTRY DATA INTO TRIP OBJECT through separate method
+        try {
+            long insertId = database.insert("trips", null, values);
+            //ACCESS ENTRY IN TRIPS TABLE BY CREATING A CURSOR (ITERATOR)
+            Cursor cursor = database.query("trips", allFields, "id" + "=" + insertId, null, null, null, null);
+            //first entry will be the latest inserted entry
+            cursor.moveToFirst();
+            //MUST TRANSLATE TABLE ENTRY DATA INTO TRIP OBJECT through separate method
 
-        Trip newTrip = cursorToTrip(cursor);
+            Trip newTrip = cursorToTrip(cursor);
 
 
-
-        cursor.close();
-        return newTrip;
-
+            cursor.close();
+            return newTrip;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Trip> getAllTrips() {
         List<Trip> trips = new ArrayList<Trip>();
-        Cursor c = database.query("trips", allFields, null, null, null, null, null);
-        c.moveToFirst();
-        while (!c.isAfterLast()) {
-            Trip t = cursorToTrip(c);
-            trips.add(t);
-            c.moveToNext();
+        try {
+            Cursor c = database.query("trips", allFields, null, null, null, null, null);
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                Trip t = cursorToTrip(c);
+                trips.add(t);
+                c.moveToNext();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
         return trips;
     }
@@ -86,7 +95,7 @@ public class DataSource {
         trip.setLocation((String) c.getString(1));
         trip.setDepartureDate((String) c.getString(2));
         trip.setReturnDate((String) c.getString(3));
-        trip.setTime((int) c.getInt(c.getInt(4)));
+        trip.setTime((String) c.getString(4));
 
         return trip;
 

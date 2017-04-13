@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 
 /**
@@ -21,7 +22,8 @@ import android.support.v4.app.FragmentTransaction;
 
 public class Depart extends Fragment implements View.OnClickListener {
 
-    DataStorage ds;
+    Trip currentTrip = null;
+    DataSource ds;
     Button submit;
     String location;
     int day;
@@ -35,28 +37,40 @@ public class Depart extends Fragment implements View.OnClickListener {
         // XML file for creating the fragment
 
         View v = inflater.inflate(R.layout.fragment_depart,container, false);
-        submit = (Button) v.findViewById(R.id.submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Fragment returnFragment = new Return();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, returnFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-
-            }
-        });
-
         EditText place = (EditText) v.findViewById(R.id.place);
         location = place.getText().toString();
         DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
         day = datePicker.getDayOfMonth();
         month = datePicker.getMonth() + 1;
         year = datePicker.getYear();
+        currentTrip = ds.createTrip(day+"-"+ month+"-"+year, location);
+
+        submit = (Button) v.findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment returnFragment = new Return();
+                if(currentTrip!= null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("currentTripId", currentTrip.getId());
+                    returnFragment.setArguments(bundle);
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, returnFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+                else{
+                    Toast.makeText(getActivity(),"Please enter location and date!",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
 
         return v;
     }

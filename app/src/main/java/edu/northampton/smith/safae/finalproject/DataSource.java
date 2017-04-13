@@ -35,15 +35,13 @@ public class DataSource {
 
 
     //Trip will be replaced by class name for Trip Object
-    public Trip createTrip(String destination, String date_arrival, String date_departure ,String diary_entry_time){
+    public Trip createTrip( String date_depart, String location){
 
         //all these entries must be passed to database as ContentValues, why? not sure, just do it
         ContentValues values = new ContentValues();
         //****HOW TO MAKE THIS MORE EFFICIENT? is this necessary? how to do this more efficiently/with a String []?
-        values.put("destination", destination);
-        values.put("date_arrival", date_arrival);
-        values.put("date_departure", date_departure);
-        values.put("diary_entry_time", diary_entry_time);
+        values.put("date_depart", date_depart);
+        values.put("location", location);
         //INSERT NEW ENTRY INTO TRIPS TABLE
         long insertId = database.insert("trips", null, values);
         //ACCESS ENTRY IN TRIPS TABLE BY CREATING A CURSOR (ITERATOR)
@@ -53,13 +51,19 @@ public class DataSource {
         //MUST TRANSLATE TABLE ENTRY DATA INTO TRIP OBJECT through separate method
 
         Trip newTrip = cursorToTrip(cursor);
-
-
-
         cursor.close();
         return newTrip;
-
     }
+
+    public void updateTrip(String type, String value, int currentTripId){
+
+    ContentValues values = new ContentValues();
+        values.put(type, value);
+
+       // Cursor cursor = database.query("trips", allFields, "id" + "=" + currentTrip.getId(), null, null,null,null);
+        database.update("trips", values,  "_id="+currentTripId, null  );
+    }
+
 
     public List<Trip> getAllTrips() {
         List<Trip> trips = new ArrayList<Trip>();

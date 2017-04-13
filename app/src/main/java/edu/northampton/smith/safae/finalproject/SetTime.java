@@ -18,10 +18,9 @@ import android.widget.Toast;
 
 public class SetTime extends Fragment implements View.OnClickListener {
 
-    DataStorage ds;
+    DataSource ds;
     Button done;
-    int hour;
-    int minute;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,21 +29,24 @@ public class SetTime extends Fragment implements View.OnClickListener {
         // created it's going to use this
         // XML file for creating the fragment
         View v = inflater.inflate(R.layout.fragment_set_time, container, false);
+
+
+        TimePicker timePicker = (TimePicker) v.findViewById(R.id.timePicker);
+        int hour  = timePicker.getCurrentHour();
+       int minute = timePicker.getCurrentMinute();
+
+        Bundle bundle = new Bundle();
+        final int currentTripId = (int) bundle.getInt("currentTripId");
+
+        ds.updateTrip("diary_entry_time", hour+":"+minute , currentTripId);
+
         done = (Button) v.findViewById(R.id.done);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Toast.makeText(getActivity(),"Done!",Toast.LENGTH_SHORT).show();
-
-
-
             }
         });
-
-        TimePicker timePicker = (TimePicker) v.findViewById(R.id.timePicker);
-//        int hour  = timePicker.getHour();
-//        int minute = timePicker.getMinute();
 
         return v;
     }

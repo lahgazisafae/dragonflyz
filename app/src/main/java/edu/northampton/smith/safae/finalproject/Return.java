@@ -17,7 +17,7 @@ import android.widget.EditText;
 
 public class Return extends Fragment implements View.OnClickListener {
 
-    DataStorage ds;
+    DataSource ds;
     Button submit;
 
     int day;
@@ -32,11 +32,25 @@ public class Return extends Fragment implements View.OnClickListener {
 
         View v = inflater.inflate(R.layout.fragment_return,container, false);
         submit = (Button) v.findViewById(R.id.submit);
+
+        Bundle bundle = new Bundle();
+        final int currentTripId = (int) bundle.getInt("currentTripId");
+        DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
+        day = datePicker.getDayOfMonth();
+        month = datePicker.getMonth() + 1;
+        year = datePicker.getYear();
+
+        ds.updateTrip("date_return", day+"-"+ month+"-"+year, currentTripId);
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Fragment setTimeFragment = new SetTime();
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("currentTripId", currentTripId);
+                setTimeFragment.setArguments(bundle1);
+
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, setTimeFragment);
@@ -47,12 +61,6 @@ public class Return extends Fragment implements View.OnClickListener {
             }
         });
 
-
-
-        DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
-        day = datePicker.getDayOfMonth();
-        month = datePicker.getMonth() + 1;
-        year = datePicker.getYear();
 
         return v;
     }

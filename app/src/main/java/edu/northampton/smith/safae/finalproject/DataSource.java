@@ -17,7 +17,7 @@ public class DataSource {
     SQLiteDatabase database;
     SQLiteHelper mysqlhelper;
 
-    String[] allFields = {"id", "destination", "date_arrival", "date_departure","diary_entry_time"};
+    String[] allFields = {"id", "destination", "date_depart", "date_return","diary_entry_time"};
 
     public DataSource (Context c){
         mysqlhelper = new SQLiteHelper(c);
@@ -81,11 +81,14 @@ public class DataSource {
     }
 
 
-
+//*******EDIT*****//
     public Trip cursorToTrip(Cursor c){
         Trip trip = new Trip();
         trip.setLocation((String) c.getString(0));
+        trip.setId((int)c.getInt(1));
         return trip;
 
     }
+
+
 }

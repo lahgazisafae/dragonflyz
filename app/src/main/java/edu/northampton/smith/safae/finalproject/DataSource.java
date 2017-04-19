@@ -20,6 +20,7 @@ public class DataSource {
     String[] allFields = {"id", "location", "date_depart", "date_return","diary_entry"};
 
 
+
     public DataSource (Context c){
         mysqlhelper = new SQLiteHelper(c);
       //  mysqlhelper.onUpgrade(database,0,0);
@@ -48,6 +49,7 @@ public class DataSource {
 //        System.out.println("location"+ location);
 //        System.out.println("date_depart" + date_depart);
         //INSERT NEW ENTRY INTO TRIPS TABLE
+
             long insertId = database.insert("trips", null, values);
             //ACCESS ENTRY IN TRIPS TABLE BY CREATING A CURSOR (ITERATOR)
             Cursor cursor = database.query("trips", allFields, "id" + "=" + insertId, null, null, null, null);
@@ -60,6 +62,7 @@ public class DataSource {
         return newTrip;
     }
 
+
     public void updateTrip(String type, String value, int currentTripId){
 
     ContentValues values = new ContentValues();
@@ -67,6 +70,7 @@ public class DataSource {
 
        // Cursor cursor = database.query("trips", allFields, "id" + "=" + currentTrip.getId(), null, null,null,null);
         database.update("trips", values,  "_id="+currentTripId, null  );
+
 
     }
 
@@ -96,8 +100,12 @@ public class DataSource {
 //*******EDIT*****//
     public Trip cursorToTrip(Cursor c){
         Trip trip = new Trip();
-        trip.setLocation((String) c.getString(0));
-        trip.setId((int)c.getInt(1));
+
+        trip.setId((int) c.getInt(0));
+        trip.setLocation((String) c.getString(1));
+        trip.setDepartureDate((String) c.getString(2));
+        trip.setReturnDate((String) c.getString(3));
+        trip.setTime((String) c.getString(4));
 
         return trip;
 

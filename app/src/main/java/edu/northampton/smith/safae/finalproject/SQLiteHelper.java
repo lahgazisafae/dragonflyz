@@ -14,8 +14,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             "'location' text not null, " +
             "'date_depart' text not null, 'date_return' text not null, 'diary_entry' text not null);";
 
+
+
     public SQLiteHelper(Context context) {
         super(context, "trips", null, 1);
+
         // database name is trips
     }
 

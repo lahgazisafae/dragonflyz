@@ -29,16 +29,21 @@ public class SetTime extends Fragment implements View.OnClickListener {
         // created it's going to use this
         // XML file for creating the fragment
         View v = inflater.inflate(R.layout.fragment_set_time, container, false);
-
-
         TimePicker timePicker = (TimePicker) v.findViewById(R.id.timePicker);
         int hour  = timePicker.getCurrentHour();
        int minute = timePicker.getCurrentMinute();
 
-        Bundle bundle = new Bundle();
-        final int currentTripId = (int) bundle.getInt("currentTripId");
+        ds = new DataSource(getActivity());
+        Bundle bundle = getArguments();
+        String location = bundle.getString("location");
+        String date_departure = bundle.getString("date_departure");
+        String date_return = bundle.getString("date_return");
 
-        ds.updateTrip("diary_entry_time", hour+":"+minute , currentTripId);
+        if(ds!=null)
+        ds.createTrip(date_departure, date_return, location);
+        else
+            Toast.makeText(getActivity(),"ds is null",Toast.LENGTH_SHORT).show();
+
 
         done = (Button) v.findViewById(R.id.done);
         done.setOnClickListener(new View.OnClickListener() {

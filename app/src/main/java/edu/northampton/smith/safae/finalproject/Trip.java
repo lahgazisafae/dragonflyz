@@ -8,11 +8,38 @@ import java.util.Date;
 
 public class Trip {
 
-    int id;
-    int date;
-    String name;
-    String location;
-    String journalEntry;
+    private int id;
+    private String departureDate;
+    private String returnDate;
+    private String timeInMin;
+    private String location;
+
+
+    public String getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(String departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public String getTime() {
+        return timeInMin;
+    }
+
+    public void setTime(String time) {
+        this.timeInMin = time;
+    }
+
+
 
     public int getId() {
         return id;
@@ -21,13 +48,8 @@ public class Trip {
     public void setId(int id) {
         this.id = id;
     }
-    public int getDate() {
-        return date;
-    }
 
-    public void setDate(int date) {
-        this.date = date;
-    }
+
 
     public String getLocation() {
         return location;
@@ -37,23 +59,6 @@ public class Trip {
         this.location = location;
     }
 
-    public String getJournalEntry() {
-        return journalEntry;
-    }
 
-    public void setJournalEntry(String journalEntry) {
-        this.journalEntry = journalEntry;
-    }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String toString(){
-        return "id:"+id + " name: "+name+" date: " +date + "location: "+location+
-                "journalEntry"+journalEntry;
-    }
 }
 

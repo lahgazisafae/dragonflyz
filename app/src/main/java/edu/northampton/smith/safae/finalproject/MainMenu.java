@@ -19,6 +19,7 @@ import android.widget.Button;
 public class MainMenu extends Fragment implements View.OnClickListener {
 
     DataSource ds;
+
     Button newTrip;
     Button savedTrips;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +33,7 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         newTrip = (Button) v.findViewById(R.id.new_trip);
         savedTrips = (Button) v.findViewById(R.id.saved);
 
+        String [] trip_details;
         newTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

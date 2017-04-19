@@ -23,6 +23,7 @@ public class Trips_SQLite extends ListActivity {
         ds = new DataSource(this);
         ds.open();
         List<Trip> values = ds.getAllTrips();
+
         ArrayAdapter<Trip> adapter= new ArrayAdapter<Trip>(this,
                 android.R.layout.simple_expandable_list_item_1,values);
         setListAdapter(adapter);
@@ -37,19 +38,20 @@ public class Trips_SQLite extends ListActivity {
                 adapter.remove(t);
             }
         }
+
         if(view.getId() == R.id.add){
 
-            String [] destination = {"Budapest","Prague","Madrid","Shanghai","Athens"};
-            String [] date_departure = {"2261995","1231993","4111993","4271972","12312017"};
-            String [] date_return = {"2261995","1231993","4111993","4271972","12312017"};
-            String [] diary_entry_time = {"12:34","23:41","11:56","10:34","15:45"};
-            int index = new Random().nextInt(4);
-            t = ds.createTrip(destination[index],date_departure[index],
-                    date_return[index],diary_entry_time[index]);
+//             String [] destination = {"Budapest","Prague","Madrid","Shanghai","Athens"};
+//             String [] date_departure = {"2261995","1231993","4111993","4271972","12312017"};
+//             String [] date_return = {"2261995","1231993","4111993","4271972","12312017"};
+//             String [] diary_entry_time = {"12:34","23:41","11:56","10:34","15:45"};
+//             int index = new Random().nextInt(4);
+//             t = ds.createTrip(destination[index],date_departure[index],
+//                     date_return[index],diary_entry_time[index]);
 
             adapter.add(t);
 
-        }
+
         adapter.notifyDataSetChanged();
     }
     @Override

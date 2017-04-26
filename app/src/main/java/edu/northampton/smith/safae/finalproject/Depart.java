@@ -18,6 +18,9 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by Amyrah on 4/4/17.
@@ -33,6 +36,8 @@ public class Depart extends Fragment implements View.OnClickListener {
     private String date;
     private EditText place;
     DatePicker datePicker;
+    private Button submit;
+ 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,6 +81,7 @@ public class Depart extends Fragment implements View.OnClickListener {
                     fragmentTransaction.commit();
             }
         });
+
         return v;
     }
     public boolean isValidLocation(String location){

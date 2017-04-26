@@ -15,6 +15,9 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Amyrah on 4/5/17.
  */
@@ -71,6 +74,7 @@ public class Return extends Fragment implements View.OnClickListener {
 
             }
         });
+
         return v;
     }
 

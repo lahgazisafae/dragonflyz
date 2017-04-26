@@ -28,10 +28,10 @@ public class Trips_SQLite extends ListActivity {
                 android.R.layout.simple_expandable_list_item_1,values);
         setListAdapter(adapter);
     }
-    public void onClick(View view){
-        ArrayAdapter<Trip> adapter = (ArrayAdapter<Trip>)getListAdapter();
+    public void onClick(View view) {
+        ArrayAdapter<Trip> adapter = (ArrayAdapter<Trip>) getListAdapter();
         Trip t = null;
-        if(view.getId() == R.id.delete){
+        if (view.getId() == R.id.delete) {
             if (getListAdapter().getCount() > 0) {
                 t = (Trip) getListAdapter().getItem(0);
                 ds.deleteTrip(t);
@@ -39,7 +39,7 @@ public class Trips_SQLite extends ListActivity {
             }
         }
 
-        if(view.getId() == R.id.add){
+        if (view.getId() == R.id.add) {
 
 //             String [] destination = {"Budapest","Prague","Madrid","Shanghai","Athens"};
 //             String [] date_departure = {"2261995","1231993","4111993","4271972","12312017"};
@@ -52,7 +52,8 @@ public class Trips_SQLite extends ListActivity {
             adapter.add(t);
 
 
-        adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+        }
     }
     @Override
     protected void onResume() {

@@ -5,11 +5,12 @@ package edu.northampton.smith.safae.finalproject;
  */
 
 import android.app.ListActivity;
-<<<<<<< HEAD
+
 import android.content.DialogInterface;
-=======
+
+
 import android.content.Intent;
->>>>>>> master
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -81,7 +82,7 @@ public class Trips_SQLite extends ListActivity {
 
         }
 
-<<<<<<< HEAD
+
         if (view.getId() == R.id.add) {
 
 //             String [] destination = {"Budapest","Prague","Madrid","Shanghai","Athens"};
@@ -101,9 +102,9 @@ public class Trips_SQLite extends ListActivity {
 //            MainMenu mainMenuFragment = new MainMenu();
 //            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 //            ft.add(R.id.fragment_container, mainMenuFragment).commit();
-=======
+
             adapter.notifyDataSetChanged();
->>>>>>> master
+
         }
     }
     @Override

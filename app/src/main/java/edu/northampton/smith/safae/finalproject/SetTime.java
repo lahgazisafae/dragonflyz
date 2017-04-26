@@ -53,7 +53,7 @@ public class SetTime extends Fragment implements View.OnClickListener {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
+
                 // passing these parameters to the main menu fragment to
                 // set up the alert dialogue
                 Fragment mainMenuFragment = new MainMenu();
@@ -70,9 +70,7 @@ public class SetTime extends Fragment implements View.OnClickListener {
                 fragmentTransaction.replace(R.id.fragment_container, mainMenuFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-=======
-                Toast.makeText(getActivity(),"Done!",Toast.LENGTH_SHORT).show();
->>>>>>> master
+
 
             }
         });

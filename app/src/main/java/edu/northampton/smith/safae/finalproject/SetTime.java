@@ -1,10 +1,12 @@
 package edu.northampton.smith.safae.finalproject;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +33,15 @@ public class SetTime extends Fragment implements View.OnClickListener {
         // XML file for creating the fragment
         View v = inflater.inflate(R.layout.fragment_set_time, container, false);
         TimePicker timePicker = (TimePicker) v.findViewById(R.id.timePicker);
-        int hour  = timePicker.getCurrentHour();
-       int minute = timePicker.getCurrentMinute();
+        final int hour  = timePicker.getCurrentHour();
+        final int minute = timePicker.getCurrentMinute();
+
 
         ds = new DataSource(getActivity());
         Bundle bundle = getArguments();
-        String location = bundle.getString("location");
-        String date_departure = bundle.getString("date_departure");
-        String date_return = bundle.getString("date_return");
+        final String location = bundle.getString("location");
+        final String date_departure = bundle.getString("date_departure");
+        final String date_return = bundle.getString("date_return");
 
         if(ds!=null)
         ds.createTrip(date_departure, date_return, location);
@@ -50,7 +53,24 @@ public class SetTime extends Fragment implements View.OnClickListener {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Done!",Toast.LENGTH_SHORT).show();
+
+                // passing these parameters to the main menu fragment to
+                // set up the alert dialogue
+                Fragment mainMenuFragment = new MainMenu();
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("date_return", date_return);
+                bundle2.putString("date_departure", date_departure);
+                bundle2.putString("location", location);
+                bundle2.putString("hour", Integer.toString(hour));
+                bundle2.putString("min", Integer.toString(minute));
+                mainMenuFragment.setArguments(bundle2);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, mainMenuFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
 
             }
         });

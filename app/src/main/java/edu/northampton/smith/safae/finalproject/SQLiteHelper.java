@@ -10,7 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 
-    String SQL_Create = "create table trips ('id' integer primary key autoincrement,"  +
+    String SQL_Create = "create table trips ('id' integer primary key autoincrement,"+
+
             "'location' text not null, " +
             "'date_depart' text not null, 'date_return' text not null, 'diary_entry' text not null);";
 

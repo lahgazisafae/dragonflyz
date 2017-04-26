@@ -5,28 +5,44 @@ package edu.northampton.smith.safae.finalproject;
  */
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.List;
-import java.util.Random;
 
 public class Trips_SQLite extends ListActivity {
     DataSource ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trip__sqlite);
+        setContentView(R.layout.activity_trip_sqlite);
         //this.deleteDatabase("users");
 
         ds = new DataSource(this);
         ds.open();
         List<Trip> values = ds.getAllTrips();
+        for(int i = 0; i<values.size(); i++){
+           Trip currentTrip= values.get(i);
 
+        }
         ArrayAdapter<Trip> adapter= new ArrayAdapter<Trip>(this,
                 android.R.layout.simple_expandable_list_item_1,values);
         setListAdapter(adapter);
+        final ListView lv = getListView();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent tripDetails = new Intent(Trips_SQLite.this, TripDetailsActivity.class);
+                Trip currentTrip  = (Trip) lv.getItemAtPosition(position);
+                tripDetails.putExtra("location", currentTrip.getLocation());
+                tripDetails.putExtra("depart_date", currentTrip.getDepartureDate());
+                startActivity(tripDetails);
+            }
+        });
     }
     public void onClick(View view) {
         ArrayAdapter<Trip> adapter = (ArrayAdapter<Trip>) getListAdapter();
@@ -38,19 +54,6 @@ public class Trips_SQLite extends ListActivity {
                 adapter.remove(t);
             }
         }
-
-        if (view.getId() == R.id.add) {
-
-//             String [] destination = {"Budapest","Prague","Madrid","Shanghai","Athens"};
-//             String [] date_departure = {"2261995","1231993","4111993","4271972","12312017"};
-//             String [] date_return = {"2261995","1231993","4111993","4271972","12312017"};
-//             String [] diary_entry_time = {"12:34","23:41","11:56","10:34","15:45"};
-//             int index = new Random().nextInt(4);
-//             t = ds.createTrip(destination[index],date_departure[index],
-//                     date_return[index],diary_entry_time[index]);
-
-            adapter.add(t);
-
 
             adapter.notifyDataSetChanged();
         }

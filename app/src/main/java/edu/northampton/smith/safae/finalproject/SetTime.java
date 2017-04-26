@@ -50,7 +50,8 @@ public class SetTime extends Fragment implements View.OnClickListener {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Toast.makeText(getActivity(),"Done!",Toast.LENGTH_SHORT).show();
+
             }
         });
 

@@ -8,11 +8,21 @@ import java.util.Date;
 
 public class Trip {
 
-    private int id;
+    private long id;
     private String departureDate;
     private String returnDate;
     private String timeInMin;
     private String location;
+    private String diary_entry;
+
+    public String getDiary_entry() {
+        return diary_entry;
+    }
+
+    public void setDiary_entry(String diary_entry) {
+        this.diary_entry = diary_entry;
+    }
+
 
 
     public String getDepartureDate() {
@@ -41,11 +51,11 @@ public class Trip {
 
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

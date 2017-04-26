@@ -5,16 +5,21 @@ package edu.northampton.smith.safae.finalproject;
  */
 
 import android.app.ListActivity;
+<<<<<<< HEAD
 import android.content.DialogInterface;
+=======
+import android.content.Intent;
+>>>>>>> master
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.List;
-import java.util.Random;
 
 public class Trips_SQLite extends ListActivity {
     DataSource ds;
@@ -22,16 +27,30 @@ public class Trips_SQLite extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trip__sqlite);
+        setContentView(R.layout.activity_trip_sqlite);
         //this.deleteDatabase("users");
 
         ds = new DataSource(this);
         ds.open();
         List<Trip> values = ds.getAllTrips();
+        for(int i = 0; i<values.size(); i++){
+           Trip currentTrip= values.get(i);
 
+        }
         ArrayAdapter<Trip> adapter= new ArrayAdapter<Trip>(this,
                 android.R.layout.simple_expandable_list_item_1,values);
         setListAdapter(adapter);
+        final ListView lv = getListView();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent tripDetails = new Intent(Trips_SQLite.this, TripDetailsActivity.class);
+                Trip currentTrip  = (Trip) lv.getItemAtPosition(position);
+                tripDetails.putExtra("location", currentTrip.getLocation());
+                tripDetails.putExtra("depart_date", currentTrip.getDepartureDate());
+                startActivity(tripDetails);
+            }
+        });
     }
     public void onClick(View view) {
         final ArrayAdapter<Trip> adapter = (ArrayAdapter<Trip>) getListAdapter();
@@ -62,6 +81,7 @@ public class Trips_SQLite extends ListActivity {
 
         }
 
+<<<<<<< HEAD
         if (view.getId() == R.id.add) {
 
 //             String [] destination = {"Budapest","Prague","Madrid","Shanghai","Athens"};
@@ -81,6 +101,9 @@ public class Trips_SQLite extends ListActivity {
 //            MainMenu mainMenuFragment = new MainMenu();
 //            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 //            ft.add(R.id.fragment_container, mainMenuFragment).commit();
+=======
+            adapter.notifyDataSetChanged();
+>>>>>>> master
         }
     }
     @Override

@@ -14,9 +14,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Trips_SQLite"/>
 
+            <activity android:name=".TripDetailsActivity" />
+        </activity>
+        <activity android:name=".Trips_SQLite" />
+        <activity android:name=".TripDetails" />
+        <activity android:name=".TripDetailsActivity"></activity>
     </application>
 
 </manifest>

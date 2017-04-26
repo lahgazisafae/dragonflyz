@@ -37,10 +37,8 @@ public class Return extends Fragment implements View.OnClickListener {
 
         Bundle bundle = getArguments();
 
-
         final String date_departure = bundle.getString("date_departure");
         final String location = bundle.getString("location");
-
 
 
         DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
@@ -52,8 +50,6 @@ public class Return extends Fragment implements View.OnClickListener {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if(date!=null) {
                     Fragment setTimeFragment = new SetTime();
                     Bundle bundle1 = new Bundle();

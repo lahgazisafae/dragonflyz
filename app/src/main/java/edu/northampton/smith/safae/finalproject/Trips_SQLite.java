@@ -5,7 +5,11 @@ package edu.northampton.smith.safae.finalproject;
  */
 
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -14,6 +18,7 @@ import java.util.Random;
 
 public class Trips_SQLite extends ListActivity {
     DataSource ds;
+    Trip t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +34,32 @@ public class Trips_SQLite extends ListActivity {
         setListAdapter(adapter);
     }
     public void onClick(View view) {
-        ArrayAdapter<Trip> adapter = (ArrayAdapter<Trip>) getListAdapter();
-        Trip t = null;
+        final ArrayAdapter<Trip> adapter = (ArrayAdapter<Trip>) getListAdapter();
+
         if (view.getId() == R.id.delete) {
-            if (getListAdapter().getCount() > 0) {
-                t = (Trip) getListAdapter().getItem(0);
-                ds.deleteTrip(t);
-                adapter.remove(t);
-            }
+            AlertDialog alertDialog = new AlertDialog.Builder(Trips_SQLite.this).create();
+            alertDialog.setTitle("Delete Journal Entry");
+            alertDialog.setMessage("Are you sure you want to delete this entry?");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "DELETE",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (getListAdapter().getCount() > 0) {
+                                t = (Trip) getListAdapter().getItem(0);
+                                ds.deleteTrip(t);
+                                adapter.remove(t);
+                            }
+                        }
+                    });
+            alertDialog.show();
+
         }
 
         if (view.getId() == R.id.add) {
@@ -49,10 +72,15 @@ public class Trips_SQLite extends ListActivity {
 //             t = ds.createTrip(destination[index],date_departure[index],
 //                     date_return[index],diary_entry_time[index]);
 
-            adapter.add(t);
+//            adapter.add(t);
 
 
-            adapter.notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
+        }
+        if (view.getId()==R.id.back) {
+//            MainMenu mainMenuFragment = new MainMenu();
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.add(R.id.fragment_container, mainMenuFragment).commit();
         }
     }
     @Override

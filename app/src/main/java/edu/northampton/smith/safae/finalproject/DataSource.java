@@ -81,11 +81,7 @@ public class DataSource {
 
        // Cursor cursor = database.query("trips", allFields, "id" + "=" + currentTrip.getId(), null, null,null,null);
         database.update("trips", values,  "_id="+currentTripId, null  );
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 9be310e20e6eab2d1297796d04fbb2cbb38a2b73
     }
 
 
@@ -134,7 +130,7 @@ public class DataSource {
 
 
         Trip trip = new Trip();
-<<<<<<< HEAD
+
         Cursor allRows = db.rawQuery("SELECT * FROM " + tableName, null);
         if (allRows.moveToFirst()) {
             String[] columnNames = allRows.getColumnNames();
@@ -150,16 +146,16 @@ public class DataSource {
                 } else if (name.equals("diary_entry")) {
                     trip.setDiary_entry(allRows.getString(allRows.getColumnIndex(name)));
                 } else {
-                    System.out.println("This didn't fucking work");
+                    System.out.println("This didn't work");
                 }
-=======
 
-        trip.setId((int) c.getInt(0));
-        trip.setLocation((String) c.getString(1));
-        trip.setDepartureDate((String) c.getString(2));
-        trip.setReturnDate((String) c.getString(3));
-        trip.setTime((String) c.getString(4));
->>>>>>> 9be310e20e6eab2d1297796d04fbb2cbb38a2b73
+//
+//        trip.setId((int) c.getInt(0));
+//        trip.setLocation((String) c.getString(1));
+//        trip.setDepartureDate((String) c.getString(2));
+//        trip.setReturnDate((String) c.getString(3));
+//        trip.setTime((String) c.getString(4));
+
 
             }
         }

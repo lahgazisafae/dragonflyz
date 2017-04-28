@@ -29,6 +29,7 @@ import java.util.Date;
 public class Depart extends Fragment implements View.OnClickListener {
 
     private Calendar c;
+
     private String date;
     private EditText place;
     private DatePicker datePicker;

@@ -100,9 +100,14 @@ public class Trips_SQLite extends ListActivity {
 //            adapter.notifyDataSetChanged();
         }
         if (view.getId()==R.id.back) {
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //                Intent intent1 = new Intent(Trips_SQLite.this,MainActivity.class);
                 startActivity(intent);
+
+
+            adapter.notifyDataSetChanged();
+
 
         }
     }

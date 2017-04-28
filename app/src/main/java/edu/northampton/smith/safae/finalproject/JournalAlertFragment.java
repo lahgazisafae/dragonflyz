@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
  */
 
 public class JournalAlertFragment extends DialogFragment {
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction

@@ -47,35 +47,40 @@ public class Return extends Fragment implements View.OnClickListener {
 
 //        ds.updateTrip("date_return", date, currentTripId);
 
+        final DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
+        Date d = new Date(datePicker.getYear()-1900, datePicker.getMonth() , datePicker.getDayOfMonth());
+        SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");
+        date = dform.format(d);
+
         currDate = new Date();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(date!=null) {
-                Date d = new Date(datePicker.getYear()-1900, datePicker.getMonth() , datePicker.getDayOfMonth());
-                SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");
-                date = dform.format(d);
+                if (date != null) {
+                    Date d = new Date(datePicker.getYear() - 1900, datePicker.getMonth(), datePicker.getDayOfMonth());
+                    SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");
+                    date = dform.format(d);
 
-                if(d.getTime()>currDate.getTime()) {
-                    Fragment setTimeFragment = new SetTime();
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("date_return", date);
-                    bundle1.putString("date_departure", date_departure);
-                    bundle1.putString("location", location);
-                    setTimeFragment.setArguments(bundle1);
+                    if (d.getTime() > currDate.getTime()) {
+                        Fragment setTimeFragment = new SetTime();
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("date_return", date);
+                        bundle1.putString("date_departure", date_departure);
+                        bundle1.putString("location", location);
+                        setTimeFragment.setArguments(bundle1);
 
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, setTimeFragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, setTimeFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    } else {
+                        Toast.makeText(getActivity(), "Please enter return date!", Toast.LENGTH_SHORT).show();
+
+                    }
+
                 }
-                else{
-                    Toast.makeText(getActivity(),"Please enter return date!",Toast.LENGTH_SHORT).show();
-
-                }
-
             }
         });
 

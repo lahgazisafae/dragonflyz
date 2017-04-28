@@ -91,6 +91,7 @@ public class DataSource {
         u.setDiary_entry(findTripCursor.getString(4));
        // u.setTime(findTripCursor.getString());
         return u;
+
     }
 
     public void updateDiaryEntry(String value, long currentTripId, String currentDiaryValue){
@@ -141,6 +142,7 @@ public class DataSource {
     public Trip cursorToTrip(SQLiteDatabase db, String tableName) {
 
         Trip trip = new Trip();
+
         Cursor allRows = db.rawQuery("SELECT * FROM " + tableName, null);
         if (allRows.moveToFirst()) {
             String[] columnNames = allRows.getColumnNames();
@@ -156,8 +158,9 @@ public class DataSource {
                 } else if (name.equals("diary_entry")) {
                     trip.setDiary_entry(allRows.getString(allRows.getColumnIndex(name)));
                 } else {
-                    System.out.println("This didn't fucking work");
+                    System.out.println("This didn't work");
                 }
+
             }
         }
         return trip;

@@ -28,25 +28,18 @@ import java.util.Date;
 
 public class Depart extends Fragment implements View.OnClickListener {
 
-
-
-
     private Calendar c;
 
     private String date;
     private EditText place;
-    DatePicker datePicker;
+    private DatePicker datePicker;
     private Button submit;
-
-    Date currDate;
+    private Date currDate;
  
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // inflate the xml file -> whenever this view is
-        // created it's going to use this
-        // XML file for creating the fragment
 
         View v = inflater.inflate(R.layout.fragment_depart,container, false);
         place = (EditText) v.findViewById(R.id.place);
@@ -65,6 +58,8 @@ public class Depart extends Fragment implements View.OnClickListener {
                 Date d = new Date(datePicker.getYear()-1900, datePicker.getMonth() , datePicker.getDayOfMonth());
                 SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");
                 date = dform.format(d);
+
+
 
                 if (location.matches("")){
                     place.setError("Invalid Location!");

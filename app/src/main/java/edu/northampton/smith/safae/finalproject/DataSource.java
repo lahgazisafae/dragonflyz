@@ -20,7 +20,6 @@ public class DataSource {
     String[] allFields = {"id", "location", "date_depart", "date_return","diary_entry"};
 
 
-
     public DataSource (Context c){
         mysqlhelper = new SQLiteHelper(c);
       //  mysqlhelper.onUpgrade(database,0,0);
@@ -68,73 +67,80 @@ public class DataSource {
         System.out.println("return date: " + newTrip.getReturnDate());
         System.out.println("id: " + newTrip.getId());
 
-
         cursor.close();
         return newTrip;
     }
 
 
-    public void updateTrip(String type, String value, int currentTripId){
+    public void updateTrip(String type, String value, long currentTripId){
 
     ContentValues values = new ContentValues();
         values.put(type, value);
-
        // Cursor cursor = database.query("trips", allFields, "id" + "=" + currentTrip.getId(), null, null,null,null);
-        database.update("trips", values,  "_id="+currentTripId, null  );
-<<<<<<< HEAD
-=======
+
+        database.update("trips", values,  "id="+currentTripId, null  );
+    }
+
+    public Trip getTrip(long tripId){
+        Cursor findTripCursor = database.query("trips", null, "id="+ tripId,null,null,null ,null );
+        Trip u = new Trip();
+        u.setId((int)findTripCursor.getLong(0));
+        u.setLocation(findTripCursor.getString(1));
+        u.setDepartureDate(findTripCursor.getString(2));
+        u.setReturnDate(findTripCursor.getString(3));
+        u.setDiary_entry(findTripCursor.getString(4));
+       // u.setTime(findTripCursor.getString());
+        return u;
+    }
+
+    public void updateDiaryEntry(String value, long currentTripId, String currentDiaryValue){
 
 
->>>>>>> 9be310e20e6eab2d1297796d04fbb2cbb38a2b73
+
     }
 
 
     public List<Trip> getAllTrips() {
-
-        System.out.println(getTableAsString(database, "trips"));
-
         List<Trip> trips = new ArrayList<Trip>();
-        try {
-            Cursor c = database.query("trips", allFields, null, null, null, null, null);
-            c.moveToFirst();
-            while (!c.isAfterLast()) {
-                Trip t = cursorToTrip(database, "trips");
-                trips.add(t);
-                c.moveToNext();
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+        Cursor allRows  = database.rawQuery("SELECT * FROM " + "trips", null);
+        if (allRows.moveToFirst() ){
+            String[] columnNames = allRows.getColumnNames();
+            do {
+                Trip trip = new Trip();
+                for (String name: columnNames) {
+                    if (name.equals("id")) {
+                        trip.setId(allRows.getLong(allRows.getColumnIndex(name)));
+                        //System.out.println("what id is it now?" + trip.getId());
+                    } else if (name.equals("location")) {
+                        trip.setLocation(allRows.getString(allRows.getColumnIndex(name)));
+                    } else if (name.equals("date_depart")) {
+                        trip.setDepartureDate(allRows.getString(allRows.getColumnIndex(name)));
+                    } else if (name.equals("date_return")) {
+                        trip.setReturnDate(allRows.getString(allRows.getColumnIndex(name)));
+                    } else if (name.equals("diary_entry")) {
+                        trip.setDiary_entry(allRows.getString(allRows.getColumnIndex(name)));
+                    } else {
+                        System.out.println("This didn't fucking work");
+                    }
+                }
+                trips.add(trip);
+
+            } while (allRows.moveToNext());
         }
         return trips;
     }
 
-    public void deleteTrip (Trip trip){
-        long id = trip.getId();
-        int num = database.delete("trips","id = " + Long.toString(id),
-                null);
-        System.out.println("why is the id :" +Long.toString(id)); //KEEPS RETURNING ID 0 FOR ALL WHY???
-        System.out.println(num);
+    public void deleteTrip (long tripId) {
+        long id = tripId;
+//        int num = database.delete("trips", "id = " + Long.toString(id),
+//                null);
+        database.delete("trips","id="+id,null);
     }
-
-//*******EDIT*****//
-//    public Trip cursorToTrip(Cursor c){
-//
-//        String name = c.getString(c.getColumnIndex("name"));
-//
-//        Trip trip = new Trip();
-//        trip.setLocation(name);
-//        trip.setId((int)c.getInt(1));
-//
-//        return trip;
-//    }
-
 
     //*****FIX YOUR CURSOR******//
     public Trip cursorToTrip(SQLiteDatabase db, String tableName) {
 
-
         Trip trip = new Trip();
-<<<<<<< HEAD
         Cursor allRows = db.rawQuery("SELECT * FROM " + tableName, null);
         if (allRows.moveToFirst()) {
             String[] columnNames = allRows.getColumnNames();
@@ -152,20 +158,10 @@ public class DataSource {
                 } else {
                     System.out.println("This didn't fucking work");
                 }
-=======
-
-        trip.setId((int) c.getInt(0));
-        trip.setLocation((String) c.getString(1));
-        trip.setDepartureDate((String) c.getString(2));
-        trip.setReturnDate((String) c.getString(3));
-        trip.setTime((String) c.getString(4));
->>>>>>> 9be310e20e6eab2d1297796d04fbb2cbb38a2b73
-
             }
         }
         return trip;
     }
-
 
 
     public String getTableAsString(SQLiteDatabase db, String tableName) {
@@ -178,17 +174,15 @@ public class DataSource {
                 for (String name: columnNames) {
                     tableString += String.format("%s: %s\n", name,
                             allRows.getString(allRows.getColumnIndex(name)));
-                    if (allRows.getString(allRows.getColumnIndex(name)) == "location"){
-
-                    }
-
                 }
                 tableString += "\n";
 
             } while (allRows.moveToNext());
         }
-
         return tableString;
     }
 
+    public SQLiteDatabase getDatabase() {
+        return database;
+    }
 }

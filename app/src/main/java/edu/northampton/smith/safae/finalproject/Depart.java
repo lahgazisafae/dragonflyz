@@ -32,7 +32,7 @@ public class Depart extends Fragment implements View.OnClickListener {
     Trip currentTrip = null;
 
     private Calendar c;
-    private Button submit;
+
     private String date;
     private EditText place;
     DatePicker datePicker;

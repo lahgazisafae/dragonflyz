@@ -69,6 +69,8 @@ public class Trip {
         this.location = location;
     }
 
-
+    public String toString(){
+        return location;
+    }
 }
 

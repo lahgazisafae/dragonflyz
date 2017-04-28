@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".Trips_SQLite" />
         <activity android:name=".TripDetails" />
-        <activity android:name=".TripDetailsActivity"></activity>
+        <activity android:name=".TripDetailsActivity" />
+        <activity android:name=".DiaryEntryActivity"></activity>
     </application>
 
 </manifest>

@@ -37,6 +37,7 @@ public class MainMenu extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 Fragment departFragment = new Depart();
+
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, departFragment);

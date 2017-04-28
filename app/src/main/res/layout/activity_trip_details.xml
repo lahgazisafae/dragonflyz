@@ -6,13 +6,47 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/travel_location"
+        android:textSize="12pt"
+        android:id="@+id/travelLocationTxt"
         />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10pt"
+            android:id="@+id/departDateTxt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10pt"
+            android:id="@+id/returnDateTxt"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deleteTripBtn"
+            android:text="Delete"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addDiaryBtn"
+            android:text="Add to Diary"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:id="@+id/diary_entry"
+        android:id="@+id/diaryEntryTxt"
         />
 
 

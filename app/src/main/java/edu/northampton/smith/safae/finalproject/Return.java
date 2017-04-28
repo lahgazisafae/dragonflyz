@@ -27,6 +27,7 @@ public class Return extends Fragment implements View.OnClickListener {
 
     private Button submit;
     private String date;
+    private Date currDate;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,16 +45,19 @@ public class Return extends Fragment implements View.OnClickListener {
         final String location = bundle.getString("location");
 
 
-        DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
-        Date d = new Date(datePicker.getYear(), datePicker.getMonth() , datePicker.getDayOfMonth());
-        SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");
-        date = dform.format(d);
 //        ds.updateTrip("date_return", date, currentTripId);
+
+        currDate = new Date();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(date!=null) {
+                Date d = new Date(datePicker.getYear()-1900, datePicker.getMonth() , datePicker.getDayOfMonth());
+                SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");
+                date = dform.format(d);
+
+                if(d.getTime()>currDate.getTime()) {
                     Fragment setTimeFragment = new SetTime();
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("date_return", date);

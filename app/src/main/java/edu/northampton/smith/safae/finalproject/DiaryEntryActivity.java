@@ -1,5 +1,6 @@
 package edu.northampton.smith.safae.finalproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,18 +28,29 @@ public class DiaryEntryActivity extends AppCompatActivity {
 
         Button addDiaryBtn = (Button) findViewById(R.id.addDiaryBtn);
         final EditText diaryEntryTxt = (EditText) findViewById(R.id.journalEntry);
-        diary_entry = diaryEntryTxt.getText().toString();
+
         addDiaryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                diary_entry = diaryEntryTxt.getText().toString();
+
                 currentTrip = ds.getTrip(currentTripId);
+                System.out.println("diary entry text: " + diary_entry);
+                System.out.println("old text: " + currentTrip.getDiary_entry());
+                ds.updateTrip("diary_entry", currentTrip.getDiary_entry() + "\n" + diary_entry, currentTripId);
+                String lulu = currentTrip.getDiary_entry();
+                
+                System.out.println("/////////////////////////////////////////////////////////");
+                System.out.println("This is the table: " +ds.getTableAsString(ds.getDatabase(), "trips"));
+                System.out.println("/////////////////////////////////////////////////////////");
 
-                ds.updateTrip("diary_entry", currentTrip.getDiary_entry() + " " + diary_entry, currentTripId);
 
-//                System.out.println("/////////////////////////////////////////////////////////");
-//                System.out.println("This is the table: " +ds.getTableAsString(ds.getDatabase(), "trips"));
-//                System.out.println("/////////////////////////////////////////////////////////");
+
+                Intent backIntent = new Intent(DiaryEntryActivity.this, TripDetailsActivity.class);
+                backIntent.putExtra("id", currentTripId);
+                startActivity(backIntent);
+                //finishActivity(Activity.RESULT_OK);
 
             }
         });

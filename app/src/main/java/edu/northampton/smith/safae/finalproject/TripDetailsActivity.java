@@ -43,10 +43,16 @@ public class TripDetailsActivity extends FragmentActivity {
 
         Intent getIntent = getIntent();
         tripId = getIntent.getLongExtra("id", -1);
-        tripDest = getIntent.getStringExtra("location");
-        tripDep = getIntent.getStringExtra("depart_date");
-        tripRet = getIntent.getStringExtra("return_date");
-        tripDry = getIntent.getStringExtra("diary_entry");
+       Trip currentTrip =  ds.getTrip(tripId);
+//        tripDest = getIntent.getStringExtra("location");
+//        tripDep = getIntent.getStringExtra("depart_date");
+//        tripRet = getIntent.getStringExtra("return_date");
+//        tripDry = getIntent.getStringExtra("diary_entry");
+
+        tripDest = currentTrip.getLocation();
+        tripDep = currentTrip.getDepartureDate();
+        tripRet = currentTrip.getReturnDate();
+        tripDry = currentTrip.getDiary_entry();
 
         tripLocation.setText(tripDest );
         tripDeparture.setText(tripDep);
@@ -61,6 +67,7 @@ public class TripDetailsActivity extends FragmentActivity {
 
                 Intent tripDiary = new Intent(TripDetailsActivity.this, DiaryEntryActivity.class);
                 tripDiary.putExtra("id", tripId);
+               // startActivityForResult(tripDiary);
                 startActivity(tripDiary);
 
 
@@ -79,6 +86,8 @@ public class TripDetailsActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 ds.deleteTrip(tripId);
+                Intent backIntent = new Intent(TripDetailsActivity.this,Trips_SQLite.class);
+                startActivity(backIntent);
                 //Intent backIntent = new Intent(this);
                 //then what? back to list view of trips?
             }

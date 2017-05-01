@@ -77,21 +77,56 @@ public class DataSource {
     ContentValues values = new ContentValues();
         values.put(type, value);
        // Cursor cursor = database.query("trips", allFields, "id" + "=" + currentTrip.getId(), null, null,null,null);
-
+        System.out.println("value is: "+ value);
         database.update("trips", values,  "id="+currentTripId, null  );
     }
 
     public Trip getTrip(long tripId){
         Cursor findTripCursor = database.query("trips", null, "id="+ tripId,null,null,null ,null );
+        findTripCursor.moveToFirst();
+       // Cursor findTripCursor  = database.rawQuery("SELECT * FROM " + "trips", null);
         Trip u = new Trip();
-        u.setId((int)findTripCursor.getLong(0));
-        u.setLocation(findTripCursor.getString(1));
+       // u.setId((int)findTripCursor.getLong(0));
+        u.setLocation(findTripCursor.getString(findTripCursor.getColumnIndex("location")));
         u.setDepartureDate(findTripCursor.getString(2));
         u.setReturnDate(findTripCursor.getString(3));
         u.setDiary_entry(findTripCursor.getString(4));
        // u.setTime(findTripCursor.getString());
-        return u;
 
+//        if (findTripCursor.moveToFirst() ){
+//            String[] columnNames = findTripCursor.getColumnNames();
+//            do {
+//                Trip trip = new Trip();
+//                for (String name: columnNames) {
+//                    if (name.equals("id")) {
+//                        if(findTripCursor.getLong(findTripCursor.getColumnIndex(name));
+//
+//                        trip.setId(allRows.getLong(allRows.getColumnIndex(name)));
+//                        //System.out.println("what id is it now?" + trip.getId());
+//                    } else if (name.equals("location")) {
+//                        trip.setLocation(allRows.getString(allRows.getColumnIndex(name)));
+//                    } else if (name.equals("date_depart")) {
+//                        trip.setDepartureDate(allRows.getString(allRows.getColumnIndex(name)));
+//                    } else if (name.equals("date_return")) {
+//                        trip.setReturnDate(allRows.getString(allRows.getColumnIndex(name)));
+//                    } else if (name.equals("diary_entry")) {
+//                        trip.setDiary_entry(allRows.getString(allRows.getColumnIndex(name)));
+//                    } else {
+//                        System.out.println("This didn't fucking work");
+//                    }
+//                }
+//                trips.add(trip);
+//
+//            } while (allRows.moveToNext());
+//        }
+
+
+
+
+
+
+
+        return u;
     }
 
     public void updateDiaryEntry(String value, long currentTripId, String currentDiaryValue){
@@ -160,7 +195,6 @@ public class DataSource {
                 } else {
                     System.out.println("This didn't work");
                 }
-
             }
         }
         return trip;

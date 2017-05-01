@@ -4,6 +4,7 @@ package edu.northampton.smith.safae.finalproject;
  * Created by Amyrah on 4/5/17.
  */
 
+import android.app.Activity;
 import android.app.ListActivity;
 
 import android.content.DialogInterface;
@@ -87,17 +88,14 @@ public class Trips_SQLite extends ListActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             if (getListAdapter().getCount() > 0) {
                                 t = (Trip) getListAdapter().getItem(0);
-                                ds.deleteTrip(t);
+                                ds.deleteTrip(t.getId());
                                 adapter.remove(t);
                             }
                         }
                     });
             alertDialog.show();
-
         }
 
-
-    
         if (view.getId()==R.id.back) {
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

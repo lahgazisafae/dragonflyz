@@ -22,7 +22,8 @@ public class SetTime extends Fragment implements View.OnClickListener {
 
     DataSource ds;
     Button done;
-
+    int hour;
+    int minute;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,8 +34,14 @@ public class SetTime extends Fragment implements View.OnClickListener {
         // XML file for creating the fragment
         View v = inflater.inflate(R.layout.fragment_set_time, container, false);
         TimePicker timePicker = (TimePicker) v.findViewById(R.id.timePicker);
-        final int hour  = timePicker.getCurrentHour();
-        final int minute = timePicker.getCurrentMinute();
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+
+            public void onTimeChanged(TimePicker view, int hourOfDay, int min) {
+                hour  = hourOfDay;
+                minute = min;
+            }
+        });
+
 
 
         ds = new DataSource(getActivity());

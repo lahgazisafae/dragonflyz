@@ -48,63 +48,41 @@ public class MainMenu extends Fragment implements View.OnClickListener {
     public static final String inputFormat = "HH:mm";
     private Date journalTime;
     private boolean onTrip = false;
-    Date depart_date=null;
-    Date return_date=null;
-    Date currDate=null;
+    Date depart_date = null;
+    Date return_date = null;
+    Date currDate = null;
     private Calendar c;
-    SimpleDateFormat formatter=null;
-
+    SimpleDateFormat formatter = null;
     View v;
     private Handler handler;
     SimpleDateFormat inputParser = new SimpleDateFormat(inputFormat, Locale.US);
-    TimerTask doAsynchronousTask;
 
 
-
-    public long milliseconds(String date,String hour,String minute)
-    {
-        //String date_ = date;
-        //"Tue Apr 23 16:08:28 GMT+05:30 2013";
+    public long milliseconds(String date, String hour, String minute) {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd z yyyy HH:mm:ss");
-        Log.d("date",date);
-// PUT IN THE USER INPUTTED HOUR AND MIN
-        String dateTimeTogether = date.substring(4,10)+" "+ date.substring(20,28)+ " 18:03:00";
-        //SimpleDateFormat sdf = new SimpleDateFormat(date);
-        try
-        {
-//            Date mDate = sdf.parse(date);
-//            long timeInMilliseconds = mDate.getTime();
-//            System.out.println("Date in milli :: " + timeInMilliseconds);
-//            return timeInMilliseconds;
+        String dateTimeTogether = date.substring(4, 10) + " " + date.substring(20, 28) + " " + hour + ":" +
+                minute + ":00";
+        try {
             Date mDate = sdf.parse(dateTimeTogether);
             long timeInMilliseconds = mDate.getTime();
             Date curDate = new Date();
             long curMillis = curDate.getTime();
-            long rv=timeInMilliseconds-curMillis;
-            Log.d("currmilis",""+curMillis);
-            Log.d("miliseconds",""+timeInMilliseconds);
-            Log.d("rv",""+rv);
-            return rv ;
-        }
-        catch (ParseException e)
-        {
+            long rv = timeInMilliseconds - curMillis;
+            return rv;
+        } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return 0;
     }
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         // inflate the xml file -> whenever this view is
         // created it's going to use this
         // XML file for creating the fragment
         super.onCreate(savedInstanceState);
-        v = inflater.inflate(R.layout.fragment_main,container, false);
+        v = inflater.inflate(R.layout.fragment_main, container, false);
         // get current time instance
         now = Calendar.getInstance();
         newTrip = (Button) v.findViewById(R.id.new_trip);
@@ -112,28 +90,16 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         // get the arguments from the bundle. if this is a new activity, this bundle will be null
         // how can we save the bundle arguments so that we don't lose them in the activity life cycle
         Bundle bundle = getArguments();
-        onTrip=true;
-
-
         // currently we're checking to see if the bundle is null or not. The bundle is null when
         // there is no trip information
-        if (bundle!=null) {
+        if (bundle != null) {
             final String location = bundle.getString("location");
             final String date_departure = bundle.getString("date_departure");
             final String date_return = bundle.getString("date_return");
             final String entry_hour = bundle.getString("hour");
             final String entry_min = bundle.getString("min");
+            Log.d("entry min", "" + entry_min);
 
-//            class backGround implements Runnable{
-//
-//                public void run() {
-
-//            }
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                back
-//            }, 10000);
-            // try to format the current date and the departure/return dates
             try {
                 formatter = new SimpleDateFormat("MM-dd-yyyy");
                 c = Calendar.getInstance();
@@ -142,48 +108,36 @@ public class MainMenu extends Fragment implements View.OnClickListener {
                 return_date = formatter.parse(date_return);
                 // format current date
                 String formattedDate = formatter.format(c.getTime());
-                currDate=formatter.parse(formattedDate);
+                currDate = formatter.parse(formattedDate);
             } catch (java.text.ParseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
-            if (currDate.equals(depart_date)|| currDate.after(depart_date)) {
+            if (currDate.equals(depart_date) || currDate.after(depart_date)) {
                 // if the current date is before the return date
                 if (currDate.before(return_date)) {
                     // get the current time
                     c = Calendar.getInstance();
                     String formattedDate = formatter.format(c.getTime());
                     try {
-                        currDate=formatter.parse(formattedDate);
+                        currDate = formatter.parse(formattedDate);
                     } catch (java.text.ParseException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable(){
-                   // handler.postAtTime(new Runnable() {
+                    handler.postDelayed(new Runnable() {
+                        // handler.postAtTime(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("msg","something");
-                            triggerDialogFrag(entry_hour,entry_min);
+                            Log.d("msg", "something");
+                            triggerDialogFrag(entry_hour, entry_min);
                         }
-                    },milliseconds (currDate.toString(),entry_hour,entry_min));
-                    //long miliSecsDate = ;
-                   // Log.d("miliSecsDate", " = "+miliSecsDate);
-
-
+                    }, milliseconds(currDate.toString(), entry_hour, entry_min));
                 }
 
             }
-
-
-            // want this to be implemented by a runnable
-            // check to see if the current date is equal to or greater than the departure date
-
         }
-
-
 
         newTrip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,18 +156,10 @@ public class MainMenu extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
-                Intent intent = new Intent(getActivity(),Trips_SQLite.class);
+                Intent intent = new Intent(getActivity(), Trips_SQLite.class);
                 startActivity(intent);
             }
         });
-
-        /////// try to compare current time to time set in setTime////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
-
-
-//        triggerDialogFrag();
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         return v;
     }
 
@@ -223,21 +169,28 @@ public class MainMenu extends Fragment implements View.OnClickListener {
 
         time = parseDate(hour + ":" + minute);
 
-        journalTime = parseDate(Integer.parseInt(entry_hour)+":"+Integer.parseInt(entry_min));
-//        dateCompareTwo = parseDate(compareStringTwo);
-
-       // if ( journalTime.after( time )) {
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-            alertDialog.setTitle("Journal Reminder");
-            alertDialog.setMessage("It's time to write in your journal");
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-        //}
+        journalTime = parseDate(Integer.parseInt(entry_hour) + ":" + Integer.parseInt(entry_min));
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("Journal Reminder");
+        alertDialog.setMessage("It's time to write in your journal");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Dismiss",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Write",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ////////////////////////////////////////////
+                        ////////////////////////////////////////////
+//                        link to page where we write in the journal
+                        ////////////////////////////////////////////
+                        ////////////////////////////////////////////
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     @Override
@@ -250,20 +203,20 @@ public class MainMenu extends Fragment implements View.OnClickListener {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState!=null) {
+        if (savedInstanceState != null) {
 //            onTrip = savedInstanceState.getBoolean("onTrip");
         }
-
-
     }
 
-    public void onStart(){
+    public void onStart() {
         super.onStart();
     }
+
     @Override
     public void onClick(View v) {
 
     }
+
     private Date parseDate(String date) {
 
         try {
@@ -273,52 +226,36 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         }
     }
 
-    class CountDownRunner implements Runnable{
+    class CountDownRunner implements Runnable {
         // @Override
         public void run() {
-            while(!Thread.currentThread().isInterrupted()){
+            while (!Thread.currentThread().isInterrupted()) {
                 try {
                     getCurrTime();
                     Thread.sleep(1000); // Pause of 1 Second
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                } catch(Exception e){
+                } catch (Exception e) {
                 }
             }
         }
     }
-//    class Runner implements Runnable{
-//        // @Override
-//        public void run() {
-//            while(!Thread.currentThread().isInterrupted()){
-//                try {
-//                    c=Calendar.getInstance();
-//                    Thread.sleep(1000); // Pause of 1 Second
-//                } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                } catch(Exception e){
-//                }
-//            }
-//        }
-//    }
-
 
     public void getCurrTime() {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                try{
-                    TextView txtCurrentTime= (TextView) v.findViewById(R.id.time);
+                try {
+                    TextView txtCurrentTime = (TextView) v.findViewById(R.id.time);
                     Date dt = new Date();
                     int hours = dt.getHours();
                     int minutes = dt.getMinutes();
                     int seconds = dt.getSeconds();
                     String curTime = hours + ":" + minutes + ":" + seconds;
                     txtCurrentTime.setText(curTime);
-                }catch (Exception e) {
+                } catch (Exception e) {
 
                 }
             }
         });
     }
-
 }

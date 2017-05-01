@@ -1,12 +1,14 @@
 package edu.northampton.smith.safae.finalproject;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -85,9 +87,27 @@ public class TripDetailsActivity extends FragmentActivity {
         deleteTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ds.deleteTrip(tripId);
-                Intent backIntent = new Intent(TripDetailsActivity.this,Trips_SQLite.class);
-                startActivity(backIntent);
+                AlertDialog alertDialog = new AlertDialog.Builder(TripDetailsActivity.this).create();
+                alertDialog.setTitle("Delete Journal Entry");
+                alertDialog.setMessage("Are you sure you want to delete this trip?");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "DELETE",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                ds.deleteTrip(tripId);
+                                Intent backIntent = new Intent(TripDetailsActivity.this,Trips_SQLite.class);
+                                startActivity(backIntent);
+                            }
+                        });
+                alertDialog.show();
+
                 //Intent backIntent = new Intent(this);
                 //then what? back to list view of trips?
             }

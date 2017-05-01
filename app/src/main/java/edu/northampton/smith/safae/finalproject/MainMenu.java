@@ -2,6 +2,7 @@ package edu.northampton.smith.safae.finalproject;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,7 @@ public class MainMenu extends Fragment implements View.OnClickListener {
     SimpleDateFormat formatter = null;
     View v;
     private Handler handler;
+    ImageView logo;
     SimpleDateFormat inputParser = new SimpleDateFormat(inputFormat, Locale.US);
 
 
@@ -87,6 +90,11 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         now = Calendar.getInstance();
         newTrip = (Button) v.findViewById(R.id.new_trip);
         savedTrips = (Button) v.findViewById(R.id.saved);
+
+        ImageView imageView = (ImageView) v.findViewById(R.id.logo);
+
+//        logo .setImageBitmap(BitmapFactory.decodeFile(picturePath));
+//        cursor.close();
         // get the arguments from the bundle. if this is a new activity, this bundle will be null
         // how can we save the bundle arguments so that we don't lose them in the activity life cycle
         Bundle bundle = getArguments();

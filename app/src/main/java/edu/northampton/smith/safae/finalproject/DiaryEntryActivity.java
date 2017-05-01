@@ -40,7 +40,7 @@ public class DiaryEntryActivity extends AppCompatActivity {
                 System.out.println("old text: " + currentTrip.getDiary_entry());
                 ds.updateTrip("diary_entry", currentTrip.getDiary_entry() + "\n" + diary_entry, currentTripId);
                 String lulu = currentTrip.getDiary_entry();
-                
+
                 System.out.println("/////////////////////////////////////////////////////////");
                 System.out.println("This is the table: " +ds.getTableAsString(ds.getDatabase(), "trips"));
                 System.out.println("/////////////////////////////////////////////////////////");

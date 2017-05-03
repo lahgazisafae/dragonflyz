@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class MainMenu extends Fragment implements View.OnClickListener {
 
     private Button newTrip;
     private Button savedTrips;
-
+    private ImageView iconImage;
     private Calendar now;
     private Date time;
     public static final String inputFormat = "HH:mm";
@@ -105,6 +106,8 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         // XML file for creating the fragment
         super.onCreate(savedInstanceState);
         v = inflater.inflate(R.layout.fragment_main,container, false);
+
+        //iconImage = (ImageView) v.findViewById(R.id.imageView2);
         // get current time instance
         now = Calendar.getInstance();
         newTrip = (Button) v.findViewById(R.id.new_trip);

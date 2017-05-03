@@ -19,7 +19,6 @@ public class JournalAlertFragment extends DialogFragment {
         builder.setMessage(R.string.dialog_journal_fragment)
                 .setPositiveButton("write", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

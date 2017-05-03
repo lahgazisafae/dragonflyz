@@ -93,8 +93,6 @@ public class MainMenu extends Fragment implements View.OnClickListener {
 
         ImageView imageView = (ImageView) v.findViewById(R.id.logo);
 
-//        logo .setImageBitmap(BitmapFactory.decodeFile(picturePath));
-//        cursor.close();
         // get the arguments from the bundle. if this is a new activity, this bundle will be null
         // how can we save the bundle arguments so that we don't lose them in the activity life cycle
         Bundle bundle = getArguments();
@@ -106,7 +104,6 @@ public class MainMenu extends Fragment implements View.OnClickListener {
             final String date_return = bundle.getString("date_return");
             final String entry_hour = bundle.getString("hour");
             final String entry_min = bundle.getString("min");
-            Log.d("entry min", "" + entry_min);
 
             try {
                 formatter = new SimpleDateFormat("MM-dd-yyyy");
@@ -138,7 +135,6 @@ public class MainMenu extends Fragment implements View.OnClickListener {
                         // handler.postAtTime(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("msg", "something");
                             triggerDialogFrag(entry_hour, entry_min);
                         }
                     }, milliseconds(currDate.toString(), entry_hour, entry_min));
@@ -190,30 +186,12 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Write",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        ////////////////////////////////////////////
-                        ////////////////////////////////////////////
-//                        link to page where we write in the journal
-                        ////////////////////////////////////////////
-                        ////////////////////////////////////////////
-                        dialog.dismiss();
+                        Intent backIntent = new Intent(getActivity(),Trips_SQLite.class);
+                        startActivity(backIntent);
                     }
                 });
+
         alertDialog.show();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-//        outState.putBoolean("onTrip", onTrip);
-
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null) {
-//            onTrip = savedInstanceState.getBoolean("onTrip");
-        }
     }
 
     public void onStart() {
@@ -232,38 +210,5 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         } catch (java.text.ParseException e) {
             return new Date(0);
         }
-    }
-
-    class CountDownRunner implements Runnable {
-        // @Override
-        public void run() {
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    getCurrTime();
-                    Thread.sleep(1000); // Pause of 1 Second
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                } catch (Exception e) {
-                }
-            }
-        }
-    }
-
-    public void getCurrTime() {
-        getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-                try {
-                    TextView txtCurrentTime = (TextView) v.findViewById(R.id.time);
-                    Date dt = new Date();
-                    int hours = dt.getHours();
-                    int minutes = dt.getMinutes();
-                    int seconds = dt.getSeconds();
-                    String curTime = hours + ":" + minutes + ":" + seconds;
-                    txtCurrentTime.setText(curTime);
-                } catch (Exception e) {
-
-                }
-            }
-        });
     }
 }

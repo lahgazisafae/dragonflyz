@@ -22,7 +22,6 @@ public class DiaryEntryActivity extends AppCompatActivity {
 
         ds = new DataSource(this);
         ds.open();
-//        currentTripId = getIntent.getLongExtra("id", -1);
         Intent getIntent = getIntent();
         currentTripId = getIntent.getLongExtra("id", -1);
 

@@ -121,6 +121,7 @@ public class MainMenu extends Fragment implements View.OnClickListener {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            // check to see if the current date is within the trip time
             if (currDate.equals(depart_date) || currDate.after(depart_date)) {
                 // if the current date is before the return date
                 if (currDate.before(return_date)) {

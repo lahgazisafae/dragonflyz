@@ -44,9 +44,6 @@ public class Return extends Fragment implements View.OnClickListener {
         final String date_departure = bundle.getString("date_departure");
         final String location = bundle.getString("location");
 
-
-//        ds.updateTrip("date_return", date, currentTripId);
-
         final DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
         Date d = new Date(datePicker.getYear()-1900, datePicker.getMonth() , datePicker.getDayOfMonth());
         SimpleDateFormat dform = new SimpleDateFormat("MM-dd-yyyy");

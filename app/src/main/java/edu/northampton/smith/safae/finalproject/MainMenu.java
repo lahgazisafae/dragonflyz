@@ -44,7 +44,7 @@ public class MainMenu extends Fragment implements View.OnClickListener {
 
     private Button newTrip;
     private Button savedTrips;
-
+    private ImageView iconImage;
     private Calendar now;
     private Date time;
     public static final String inputFormat = "HH:mm";
@@ -85,7 +85,10 @@ public class MainMenu extends Fragment implements View.OnClickListener {
         // created it's going to use this
         // XML file for creating the fragment
         super.onCreate(savedInstanceState);
-        v = inflater.inflate(R.layout.fragment_main, container, false);
+        v = inflater.inflate(R.layout.fragment_main,container, false);
+
+        //iconImage = (ImageView) v.findViewById(R.id.imageView2);
+
         // get current time instance
         now = Calendar.getInstance();
         newTrip = (Button) v.findViewById(R.id.new_trip);

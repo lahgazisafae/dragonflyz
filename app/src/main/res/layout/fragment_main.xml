@@ -1,38 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="183dp"
-        android:layout_height="196dp"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="top|center"
-        android:layout_marginTop="23dp"
-        app:srcCompat="@mipmap/dragonfly" />
-
-    <TextView
-
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="top|center"
-        android:layout_marginTop="30dp"
-        android:text="DragonFly" />
+        android:background="@color/colorPrimary"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TravelTime"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="20pt"
+            android:id="@+id/toolbar_title" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView2"-->
+        <!--android:layout_width="183dp"-->
+        <!--android:layout_height="196dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_gravity="top|center"-->
+        <!--android:layout_marginTop="23dp"-->
+        <!--android:visibility="visible"-->
+        <!--app:srcCompat="@mipmap/travel_icon" />-->
+
+    <!--<TextView-->
+
+        <!--android:id="@+id/textView3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_gravity="top|center"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:text="DragonFly" />-->
 
     <Button
 
         android:id="@+id/new_trip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"
+
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="43dp"
@@ -49,4 +72,4 @@
         android:text="Saved Trips" />
 
 
-</RelativeLayout>
+</LinearLayout>

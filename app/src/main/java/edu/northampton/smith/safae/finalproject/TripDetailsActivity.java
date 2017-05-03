@@ -57,7 +57,7 @@ public class TripDetailsActivity extends FragmentActivity {
         tripDry = currentTrip.getDiary_entry();
 
         tripLocation.setText(tripDest );
-        tripDeparture.setText(tripDep);
+        tripDeparture.setText(tripDep + " to ");
         tripReturn.setText(tripRet);
         tripDiary.setText(tripDry);
 

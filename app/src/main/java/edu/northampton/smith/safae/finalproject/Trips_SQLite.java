@@ -71,30 +71,7 @@ public class Trips_SQLite extends ListActivity {
     public void onClick(View view) {
         final ArrayAdapter<Trip> adapter = (ArrayAdapter<Trip>) getListAdapter();
 
-        if (view.getId() == R.id.delete) {
-            AlertDialog alertDialog = new AlertDialog.Builder(Trips_SQLite.this).create();
-            alertDialog.setTitle("Delete Journal Entry");
-            alertDialog.setMessage("Are you sure you want to delete this entry?");
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
 
-
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "DELETE",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (getListAdapter().getCount() > 0) {
-                                t = (Trip) getListAdapter().getItem(0);
-                                ds.deleteTrip(t.getId());
-                                adapter.remove(t);
-                            }
-                        }
-                    });
-            alertDialog.show();
-        }
 
         if (view.getId()==R.id.back) {
 

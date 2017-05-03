@@ -26,6 +26,7 @@
             android:textSize="20pt"
             android:id="@+id/toolbar_title" />
 
+
     </android.support.v7.widget.Toolbar>
 
     <!--<ImageView-->
@@ -54,6 +55,7 @@
         android:id="@+id/new_trip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="43dp"
@@ -69,15 +71,5 @@
         android:layout_marginTop="17dp"
         android:text="Saved Trips" />
 
-    <TextView
-
-        android:id="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginBottom="34dp" />
 
 </LinearLayout>

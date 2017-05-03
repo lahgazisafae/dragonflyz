@@ -20,7 +20,6 @@ public class JournalAlertFragment extends DialogFragment {
         builder.setMessage(R.string.dialog_journal_fragment)
                 .setPositiveButton("write", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
                         Intent tripsIntent = new Intent(getContext(), Trips_SQLite.class);
                         startActivity(tripsIntent);
                     }

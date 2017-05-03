@@ -69,18 +69,10 @@ public class TripDetailsActivity extends FragmentActivity {
 
                 Intent tripDiary = new Intent(TripDetailsActivity.this, DiaryEntryActivity.class);
                 tripDiary.putExtra("id", tripId);
-               // startActivityForResult(tripDiary);
+
                 startActivity(tripDiary);
 
 
-//                Fragment diaryEntryFragment = new DiaryEntry();
-//                diaryEntryFragment.setArguments(bundle);
-//
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, diaryEntryFragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
             }
         });
 
